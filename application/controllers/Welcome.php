@@ -5,7 +5,7 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-		$rawidentitas = "62 823-1506-6056";//$this->input->get("convo_id");
+		$rawidentitas = $this->input->get("convo_id");
 
 		$extr = explode(" ",$rawidentitas);
 		$extr2 = explode("-",$extr[1]);
@@ -15,7 +15,7 @@ class Welcome extends CI_Controller {
 			$identitas .= $extr2[$i];
 		}
 
-		$pesan = "hello";//$this->input->get("query");
+		$pesan = $this->input->get("query");
 
 		$getcontent = file_get_contents("https://botchat.anselljaya.com/chatbot/conversation_start.php?say=$pesan&convo_id=$identitas");
 
