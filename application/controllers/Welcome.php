@@ -5,6 +5,7 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-		echo "Hello";
+		echo $this->input->get("convo_id");
+		echo $this->input->get("query");
 	}
 }
