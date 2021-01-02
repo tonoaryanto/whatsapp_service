@@ -22,6 +22,7 @@ class Welcome extends CI_Controller {
 
 		$expesan = explode(" ",$pesan);
 
+		$katakamu = "";
 		if(isset($expesan[1])){
 			$katakamu = $expesan[1];
 			if(isset($expesan[2])){
