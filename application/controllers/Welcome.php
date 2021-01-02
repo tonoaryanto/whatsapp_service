@@ -5,13 +5,22 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-		$identitas = $this->input->get("convo_id");
-		$pesan = $this->input->get("query");
+		$rawidentitas = "62 823-1506-6056";//$this->input->get("convo_id");
 
-		$getcontent = file_get_contents("https://botchat.anselljaya.com/chatbot/conversation_star.php?say=$pesan&convo_id=$identitas");
+		$extr = explode(" ",$rawidentitas);
+		$extr2 = explode("-",$extr[1]);
+
+		$identitas = $extr[0];
+		for ($i=0; $i < count($extr2); $i++) { 
+			$identitas .= $extr2[$i];
+		}
+
+		$pesan = "hello";//$this->input->get("query");
+
+		$getcontent = file_get_contents("https://botchat.anselljaya.com/chatbot/conversation_start.php?say=$pesan&convo_id=$identitas");
 
 		$hasil = json_decode($getcontent,true);
-
+		
 		echo $hasil["botsay"];
 	}
 }
