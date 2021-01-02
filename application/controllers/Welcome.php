@@ -22,10 +22,12 @@ class Welcome extends CI_Controller {
 
 		$expesan = explode(" ",$pesan);
 
-		$katakamu = "";
 		if(isset($expesan[1])){
-			for ($i=1; $i < count($expesan); $i++) {
-				$katakamu .= ' '.$expesan[$i];
+			$katakamu = $expesan[1];
+			if(isset($expesan[2])){
+				for ($i=2; $i < count($expesan); $i++) {
+					$katakamu .= ' '.$expesan[$i];
+				}
 			}
 		}
 
@@ -39,16 +41,15 @@ class Welcome extends CI_Controller {
 		$panggilsakit = $sakit[rand(0,(count($sakit) - 1))];
 
 		if(strtolower($expesan[0]) == $namabot){
-			$hi = "If you want to chat with me, please type my name followed by the following command: \r\n- weather/cuaca \r\n \r\nExample: ".ucwords($namabot)." weather";
 			if(isset($expesan[1])){
 				$perintah = strtolower($expesan[1]);
 				if($perintah == 'cuaca' or $perintah == 'weather'){
-					$infocuaca = "To find out the weather where you are currently, please type the following command :\r\n".ucwords($namabot)." weather in <location name> \r\nor \r\n".ucwords($namabot)." cuaca di <nama lokasi>";
+					$infocuaca = "To find out the weather where you are currently, please type the following command :\r\n".ucwords($namabot)." weather in <location name> \r\nor \r\n".ucwords($namabot)." cuaca di <nama lokasi> \r\nExample : \r\nJarvis weather in bandung \r\nYou can use additional regions and countries with the following format. \r\n<location>, <region> *(Must English)*, <country> *(Must English)* \r\nExample : \r\nJarvis weather in nagreg, west java \r\nJarvis weather in nagreg, west java, indonesia";
 					if(isset($expesan[2]) and isset($expesan[3])){
 						$petunjuk = strtolower($expesan[2]);
 						$lokasi = strtolower($expesan[3]);
 						if(isset($expesan[4])){
-							for ($i=3; $i < count($expesan); $i++) {
+							for ($i=4; $i < count($expesan); $i++) {
 								$lokasi .= ' '.$expesan[$i];
 							}
 						}
@@ -72,6 +73,7 @@ class Welcome extends CI_Controller {
 
 								echo $dtshow;
 							}else{
+								echo $lokasi;
 								echo "Oops your location is unknown.";
 							}
 						}else{
@@ -84,7 +86,7 @@ class Welcome extends CI_Controller {
 					echo $panggilsakit;
 				}
 			}else{
-				echo "Hi. ".$hi;
+				echo "Hi. Please type my name followed by the following command: \r\n- weather/cuaca \r\n \r\nExample: ".ucwords($namabot)." weather";
 			}
 		}else{
 			$pesanini = "Hello, I'm ".ucwords($namabot).". I am an Artificial Intelligence. Please wait a moment my master will reply to your chat or you can say *".ucwords($namabot)."* to chat with me.";
@@ -104,7 +106,7 @@ class Welcome extends CI_Controller {
 					$this->db->update("log_user", $data);
 
 					echo $pesanini;
-				}else{return;}
+				}else{echo "#false";}
 			}else{
 				$data['kontak'] = $identitas;
 				$data['tanggalwaktu'] = date("Y-m-d H:i:s");
