@@ -48,40 +48,4 @@ class Konfigurasi_model extends CI_Model {
         }
     }
 
-    function listdata(){
-        return $this->grafik_model->list_data('allCAPITAL');
-    }
-    // function optimizeafterupload()
-    // {
-    //     if($this->session->userdata('optimizedata') == '1'){
-    //         $this->db->select('kode_data AS id,nama_data AS text');
-    //         $this->db->from('kode_data');
-    //         $this->db->where(['aktif'=>'y']);
-    //         $this->db->where("kategori_waktu IN ('2','3')");
-    //         $this->db->order_by('urutan','ASC');
-    //         $data1 = $this->db->get()->result();
-
-    //         $dataini1 = [array('id'   => '','text' => '',)];
-    //         $datsqlz = "DELETE FROM image2 WHERE kategori = 'DAY_1' OR nama_data NOT IN ('ansell'";
-    //         //$datsqlz = "DELETE FROM image2 WHERE nama_data NOT IN ('ansell'";
-    //         foreach ($data1 as $data1) {
-    //             $datsqlz .= ",'".$data1->id."'";
-    //         }
-    //         $datsqlz .= ")";
-
-    //         $this->db->query($datsqlz);
-    //         $this->session->unset_userdata('optimizedata');
-    //         // echo '<b>Optimize</b>';
-    //     }
-    //     // else{
-    //     //     $inidata =  $this->db->query("SELECT id from image2")->result();
-    //     //     $nomor = 0;
-    //     //     foreach ($inidata as $value) {
-    //     //         $nomor = $nomor + 1;
-    //     //         $setesql = "UPDATE image2 SET id='".$nomor."' WHERE id = '".$value->id."'";
-    //     //         $this->db->query($setesql);
-    //     //     }
-    //     //     $this->db->query("ALTER TABLE `image2` MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=".$nomor);
-    //     // }
-    // }
 }
