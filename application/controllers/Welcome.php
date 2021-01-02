@@ -51,12 +51,11 @@ class Welcome extends CI_Controller {
 						$lokasi = strtolower($expesan[3]);
 						if(isset($expesan[4])){
 							for ($i=4; $i < count($expesan); $i++) {
-								$lokasi .= ' '.$expesan[$i];
+								$lokasi .= '%20'.$expesan[$i];
 							}
 						}
 						if($petunjuk == 'in' or $petunjuk == 'di'){
 							$rdtcuaca = @file_get_contents("https://api.weatherapi.com/v1/current.json?key=80aff1b16f50451babc90054210201&q=".$lokasi);
-							print_r($rdtcuaca);
 							$dtcuaca =  json_decode($rdtcuaca);
 
 							if(isset($dtcuaca->{'location'})){
@@ -74,7 +73,6 @@ class Welcome extends CI_Controller {
 
 								echo $dtshow;
 							}else{
-								echo $lokasi;
 								echo "Oops your location is unknown.";
 							}
 						}else{
