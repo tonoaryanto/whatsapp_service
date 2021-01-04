@@ -23,10 +23,10 @@ class Welcome extends CI_Controller {
 		$expesan = explode(" ",$pesan);
 
 		$katakamu = "";
-		if(isset($expesan[1])){
-			$katakamu = $expesan[1];
-			if(isset($expesan[2])){
-				for ($i=2; $i < count($expesan); $i++) {
+		if(isset($expesan[0])){
+			$katakamu = $expesan[0];
+			if(isset($expesan[1])){
+				for ($i=1; $i < count($expesan); $i++) {
 					$katakamu .= ' '.$expesan[$i];
 				}
 			}
@@ -95,9 +95,12 @@ class Welcome extends CI_Controller {
 
 			if($ceklast > 0){
 				$cekdtsimpan = $cek->row_array();
-				$harisimpan = date_format(date_create($cekdtsimpan['tanggalwaktu']), "H");
-				$harini = date("H");
-				$hinterval = (int)$harini - (int)$harisimpan;
+				
+				$jamsimpan = str_pad(date_format(date_create($cekdtsimpan['tanggalwaktu']), "Y"), 4, '0', STR_PAD_LEFT).str_pad(date_format(date_create($cekdtsimpan['tanggalwaktu']), "m"), 2, '0', STR_PAD_LEFT).str_pad(date_format(date_create($cekdtsimpan['tanggalwaktu']), "d"), 2, '0', STR_PAD_LEFT).str_pad(date_format(date_create($cekdtsimpan['tanggalwaktu']), "H"), 2, '0', STR_PAD_LEFT);
+				
+				$jamini = str_pad(date("Y"), 4, '0', STR_PAD_LEFT).str_pad(date("m"), 2, '0', STR_PAD_LEFT).str_pad(date("d"), 2, '0', STR_PAD_LEFT).str_pad(date("H"), 2, '0', STR_PAD_LEFT);
+
+				$hinterval = (int)$jamini - (int)$jamsimpan;
 				if($hinterval >= 3){
 					$data['tanggalwaktu'] = date("Y-m-d H:i:s");
 	
