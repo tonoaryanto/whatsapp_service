@@ -109,7 +109,7 @@ class Welcome extends CI_Controller {
 
 					echo $pesanini;
 				}else{
-					echo $panggilsakit;
+					echo $panggilsakit." \r\n Please say *".ucwords($namabot)."* to chat with me.";
 				}
 			}else{
 				$data['kontak'] = $identitas;
