@@ -61,8 +61,9 @@ class Welcome extends CI_Controller {
 							if(isset($dtcuaca->{'location'})){
 								$dtlokasi =  $dtcuaca->{'location'};
 								$dtsaatini =  $dtcuaca->{'current'};
-								$dtshow = "Name : ".$dtlokasi->{'name'};
+								$dtshow = "";
 
+								$dtshow .= "Name : ".$dtlokasi->{'name'};
 								$dtshow .= " \r\nRegion : ".$dtlokasi->{'region'};
 								$dtshow .= " \r\nCountry : ".$dtlokasi->{'country'};
 								$dtshow .= " \r\nTime Update : ".date_format(date_create($dtsaatini->{'last_updated'}),"H:i:s d-m-Y");
@@ -81,14 +82,58 @@ class Welcome extends CI_Controller {
 					}else{
 						echo $infocuaca;
 					}
+				}else if($perintah == 'covid19'){
+					$rdtcovid = @file_get_contents("https://api.kawalcorona.com/indonesia/");
+					$dtcovid =  json_decode($rdtcovid);
+
+					$rawcon = explode(",",$dtcovid[0]->{'positif'});
+
+					$cvcon = $rawcon[0];
+					if(isset($rawcon[1])){
+						for ($i=1; $i < count($rawcon); $i++) { 
+							$cvcon .= $rawcon[$i];
+						}
+					}
+
+					$rawd = explode(",",$dtcovid[0]->{'meninggal'});
+
+					$cvdeath = $rawd[0];
+					if(isset($rawd[1])){
+						for ($i=1; $i < count($rawd); $i++) { 
+							$cvdeath .= $rawd[$i];
+						}
+					}
+
+					$rawc = explode(",",$dtcovid[0]->{'sembuh'});
+
+					$cvcure = $rawc[0];
+					if(isset($rawc[1])){
+						for ($i=1; $i < count($rawc); $i++) { 
+							$cvcure .= $rawc[$i];
+						}
+					}
+
+					$cfr = floatval($cvdeath) / floatval($cvcon) * 100;
+					$curate = floatval($cvcure) / floatval($cvcon) * 100;
+					$dtshow = "";
+
+					$dtshow .= "This is Covid19 data in Indonesia";
+					$dtshow .= " \r\nConfirmed : ".$dtcovid[0]->{'positif'};
+					$dtshow .= " \r\nRecovered : ".$dtcovid[0]->{'sembuh'};
+					$dtshow .= " \r\nDeaths : ".$dtcovid[0]->{'meninggal'};
+					$dtshow .= " \r\nTreated : ".$dtcovid[0]->{'dirawat'};
+					$dtshow .= " \r\nCase Fatality Rate : ".number_format($cfr,2)." %";
+					$dtshow .= " \r\nCure Rate : ".number_format($curate,2)." %";
+					
+					echo $dtshow;
 				}else{
 					echo $panggilsakit;
 				}
 			}else{
-				echo "Hi. Please type my name followed by the following command: \r\n- weather/cuaca \r\n \r\nExample: ".ucwords($namabot)." weather";
+				echo "Hi. Please type my name followed by the following command: \r\n- weather/cuaca \r\n- covid19 \r\n \r\nExample: ".ucwords($namabot)." weather";
 			}
 		}else{
-			$pesanini = "Hello, I'm ".ucwords($namabot).". I am an Artificial Intelligence. You can say *".ucwords($namabot)."* to chat with me.";
+			$pesanini = "Hello, I'm ".ucwords($namabot).". I am an Artificial Intelligence. You can type *".ucwords($namabot)."* to chat with me.";
 
 			$cek = $this->db->query("SELECT kontak,tanggalwaktu FROM log_user WHERE kontak = '".$identitas."'");
 			$ceklast = $cek->num_rows();
@@ -109,7 +154,7 @@ class Welcome extends CI_Controller {
 
 					echo $pesanini;
 				}else{
-					echo $panggilsakit." \r\nPlease say *".ucwords($namabot)."* to chat with me.";
+					echo $panggilsakit." \r\nPlease type *".ucwords($namabot)."* to chat with me.";
 				}
 			}else{
 				$data['kontak'] = $identitas;
