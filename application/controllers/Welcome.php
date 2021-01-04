@@ -45,7 +45,7 @@ class Welcome extends CI_Controller {
 			if(isset($expesan[1])){
 				$perintah = strtolower($expesan[1]);
 				if($perintah == 'cuaca' or $perintah == 'weather'){
-					$infocuaca = "To find out the weather where you are currently, please type the following command :\r\n".ucwords($namabot)." weather in <location name> \r\nor \r\n".ucwords($namabot)." cuaca di <nama lokasi> \r\n\r\nExample : \r\nJarvis weather in bandung \r\n\r\nYou can use additional regions and countries with the following format. \r\n<location>, <region> *(Must English)*, <country> *(Must English)* \r\n\r\nExample : \r\nJarvis weather in nagreg, west java \r\nJarvis weather in nagreg, west java, indonesia";
+					$infocuaca = "To find out the weather where you are currently, please type the following command :\r\n".ucwords($namabot)." weather in <location name> \r\nor \r\n".ucwords($namabot)." cuaca di <nama lokasi> \r\n\r\nExample : \r\nJarvis weather in bandung \r\n\r\nYou can use additional regions and countries with the following format. \r\n<location>, <region> *(Must English)*, <country> *(Must English)* \r\n\r\nExample : \r\nJarvis weather in nagreg, west java \r\nor\r\nJarvis weather in nagreg, west java, indonesia";
 					if(isset($expesan[2]) and isset($expesan[3])){
 						$petunjuk = strtolower($expesan[2]);
 						$lokasi = strtolower($expesan[3]);
