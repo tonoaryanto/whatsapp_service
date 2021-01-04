@@ -65,7 +65,7 @@ class Welcome extends CI_Controller {
 
 								$dtshow .= " \r\nRegion : ".$dtlokasi->{'region'};
 								$dtshow .= " \r\nCountry : ".$dtlokasi->{'country'};
-								$dtshow .= " \r\nLocaltime : ".date_format(date_create($dtlokasi->{'localtime'}),"H:i:s d-m-Y");
+								$dtshow .= " \r\nTime Update : ".date_format(date_create($dtsaatini->{'last_updated'}),"H:i:s d-m-Y");
 								$dtshow .= " \r\nCondition : ".$dtsaatini->{'condition'}->{'text'};
 								$dtshow .= " \r\nTemperature : ".$dtsaatini->{'temp_c'}. " C";
 								$dtshow .= " \r\nHumidity : ".$dtsaatini->{'humidity'}." %";
