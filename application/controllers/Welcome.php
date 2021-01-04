@@ -117,7 +117,7 @@ class Welcome extends CI_Controller {
 					$curate = floatval($cvcure) / floatval($cvcon) * 100;
 					$dtshow = "";
 
-					$dtshow .= "The following is data on the coronavirus disease in Indonesia\r\n";
+					$dtshow .= "Coronavirus disease in Indonesia\r\n";
 					$dtshow .= " \r\nConfirmed : ".$dtcovid[0]->{'positif'};
 					$dtshow .= " \r\nRecovered : ".$dtcovid[0]->{'sembuh'};
 					$dtshow .= " \r\nDeaths : ".$dtcovid[0]->{'meninggal'};
