@@ -88,7 +88,7 @@ class Welcome extends CI_Controller {
 				echo "Hi. Please type my name followed by the following command: \r\n- weather/cuaca \r\n \r\nExample: ".ucwords($namabot)." weather";
 			}
 		}else{
-			$pesanini = "Hello, I'm ".ucwords($namabot).". I am an Artificial Intelligence. Please wait a moment my master will reply to your chat or you can say *".ucwords($namabot)."* to chat with me.";
+			$pesanini = "Hello, I'm ".ucwords($namabot).". I am an Artificial Intelligence. You can say *".ucwords($namabot)."* to chat with me.";
 
 			$cek = $this->db->query("SELECT kontak,tanggalwaktu FROM log_user WHERE kontak = '".$identitas."'");
 			$ceklast = $cek->num_rows();
@@ -105,7 +105,9 @@ class Welcome extends CI_Controller {
 					$this->db->update("log_user", $data);
 
 					echo $pesanini;
-				}else{echo "#false";}
+				}else{
+					echo $panggilsakit;
+				}
 			}else{
 				$data['kontak'] = $identitas;
 				$data['tanggalwaktu'] = date("Y-m-d H:i:s");
