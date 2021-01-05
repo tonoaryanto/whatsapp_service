@@ -117,13 +117,17 @@ class Welcome extends CI_Controller {
 					$curate = floatval($cvcure) / floatval($cvcon) * 100;
 					$dtshow = "";
 
-					$dtshow .= "Coronavirus disease in Indonesia\r\n";
-					$dtshow .= " \r\n*Confirmed* : ".$dtcovid[0]->{'positif'};
-					$dtshow .= " \r\n*Recovered* : ".$dtcovid[0]->{'sembuh'};
-					$dtshow .= " \r\n*Deaths* : ".$dtcovid[0]->{'meninggal'};
-					$dtshow .= " \r\n*Treated* : ".$dtcovid[0]->{'dirawat'};
-					$dtshow .= " \r\n*Case Fatality Rate* : ".number_format($cfr,2)." %";
-					$dtshow .= " \r\n*Cure Rate* : ".number_format($curate,2)." %";
+					if(isset($dtcovid[0]->{'positif'})){
+						$dtshow .= "Coronavirus disease in Indonesia\r\n";
+						$dtshow .= " \r\n*Confirmed* : ".$dtcovid[0]->{'positif'};
+						$dtshow .= " \r\n*Recovered* : ".$dtcovid[0]->{'sembuh'};
+						$dtshow .= " \r\n*Deaths* : ".$dtcovid[0]->{'meninggal'};
+						$dtshow .= " \r\n*Treated* : ".$dtcovid[0]->{'dirawat'};
+						$dtshow .= " \r\n*Case Fatality Rate* : ".number_format($cfr,2)." %";
+						$dtshow .= " \r\n*Cure Rate* : ".number_format($curate,2)." %";	
+					}else{
+						$dtshow .= "The database isn't ready for now";
+					}
 					
 					echo $dtshow;
 				}else if($perintah == 'film' or $perintah == 'movie'){
@@ -145,16 +149,21 @@ class Welcome extends CI_Controller {
 						}
 						$rdtfilm = @file_get_contents("https://www.omdbapi.com/?plot=full&apikey=5a23a5ae&t=".$petunjuk.$tahun);
 						$dtfilm =  json_decode($rdtfilm);
-						$dtshow = "Source of movie information from *IMDb*\r\n";
+						$dtshow = "";
 
-						$dtshow .= "\r\n*Title* : ".$dtfilm->{'Title'};
-						$dtshow .= "\r\n*Rating* : ".$dtfilm->{'imdbRating'}."/10";
-						$dtshow .= "\r\n*Released* : ".$dtfilm->{'Released'};
-						$dtshow .= "\r\n*Gendre* : ".$dtfilm->{'Genre'};
-						$dtshow .= "\r\n*Actors* : ".$dtfilm->{'Actors'};
-						$dtshow .= "\r\n*Country* : ".$dtfilm->{'Country'};
-						$dtshow .= "\r\n*Production* : ".$dtfilm->{'Production'};
-						$dtshow .= "\r\n\r\n*Plot* : \r\n".$dtfilm->{'Plot'};
+						if(isset($dtfilm->{'Title'})){
+							$dtshow .= "Source of movie information from *IMDb*\r\n";
+							$dtshow .= "\r\n*Title* : ".$dtfilm->{'Title'};
+							$dtshow .= "\r\n*Rating* : ".$dtfilm->{'imdbRating'}."/10";
+							$dtshow .= "\r\n*Released* : ".$dtfilm->{'Released'};
+							$dtshow .= "\r\n*Gendre* : ".$dtfilm->{'Genre'};
+							$dtshow .= "\r\n*Actors* : ".$dtfilm->{'Actors'};
+							$dtshow .= "\r\n*Country* : ".$dtfilm->{'Country'};
+							$dtshow .= "\r\n*Production* : ".$dtfilm->{'Production'};
+							$dtshow .= "\r\n\r\n*Plot* : \r\n".$dtfilm->{'Plot'};	
+						}else{
+							$dtshow .= "It looks like the movie you are looking for is not available :(";
+						}
 	
 						echo $dtshow;
 					}else{
