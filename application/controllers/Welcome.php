@@ -126,11 +126,46 @@ class Welcome extends CI_Controller {
 					$dtshow .= " \r\nCure Rate : ".number_format($curate,2)." %";
 					
 					echo $dtshow;
+				}else if($perintah == 'film' or $perintah == 'movie'){
+					$infofilm = "To find out the information about a film, please type the following command :\r\n".ucwords($namabot)." movie <movie title> \r\nor \r\n".ucwords($namabot)." film <Judul film> \r\n\r\nExample : \r\nJarvis movie Conjuring \r\n\r\nYou can use additional year with the following format. \r\n<movie title> *#<year> \r\n\r\nExample : \r\nJarvis Contagion *2011";
+					if(isset($expesan[2])){
+						$petunjuk = strtolower($expesan[2]);
+						if(isset($expesan[3])){
+							for ($i=3; $i < count($expesan); $i++) {
+								if(str_split($expesan[$i])[0] != "*"){
+									$petunjuk .= '%20'.$expesan[$i];
+								}
+							}
+						}
+
+						$tahun = "";
+						if(str_split(end($expesan))[0] == "*"){
+							$tahun .= explode("*",end($expesan))[1];
+							$tahun = "&y=".$tahun; 
+						}
+						$rdtfilm = @file_get_contents("https://www.omdbapi.com/?plot=full&apikey=5a23a5ae&t=".$petunjuk.$tahun);
+						$dtfilm =  json_decode($rdtfilm);
+						$dtshow = "source of movie information from IMDb\r\n";
+
+						$dtshow .= "\r\nTitle : ".$dtfilm->{'Title'};
+						$dtshow .= "\r\nRating : ".$dtfilm->{'imdbRating'}."/10";
+						$dtshow .= "\r\nReleased : ".$dtfilm->{'Released'};
+						$dtshow .= "\r\nGendre : ".$dtfilm->{'Genre'};
+						$dtshow .= "\r\nActors : ".$dtfilm->{'Actors'};
+						$dtshow .= "\r\nCountry : ".$dtfilm->{'Country'};
+						$dtshow .= "\r\nProduction : ".$dtfilm->{'Production'};
+						$dtshow .= "\r\nPlot : ".$dtfilm->{'Plot'};
+	
+						echo $dtshow;
+					}else{
+						echo $infofilm;
+					}
+
 				}else{
 					echo $panggilsakit;
 				}
 			}else{
-				echo "Hi. Please type my name followed by the following command: \r\n- weather/cuaca \r\n- covid19 \r\n \r\nExample: ".ucwords($namabot)." weather";
+				echo "Hi. Please type my name followed by the following command: \r\n- weather/cuaca \r\n- movie/film \r\n- covid19 \r\n \r\nExample: ".ucwords($namabot)." weather";
 			}
 		}else{
 			$pesanini = "Hello, I'm ".ucwords($namabot).". I am an Artificial Intelligence. You can type *".ucwords($namabot)."* to chat with me.";
