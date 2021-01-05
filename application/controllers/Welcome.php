@@ -63,14 +63,14 @@ class Welcome extends CI_Controller {
 								$dtsaatini =  $dtcuaca->{'current'};
 								$dtshow = "";
 
-								$dtshow .= "Name : ".$dtlokasi->{'name'};
-								$dtshow .= " \r\nRegion : ".$dtlokasi->{'region'};
-								$dtshow .= " \r\nCountry : ".$dtlokasi->{'country'};
-								$dtshow .= " \r\nTime Update : ".date_format(date_create($dtsaatini->{'last_updated'}),"H:i:s d-m-Y");
-								$dtshow .= " \r\nCondition : ".$dtsaatini->{'condition'}->{'text'};
-								$dtshow .= " \r\nTemperature : ".$dtsaatini->{'temp_c'}. " C";
-								$dtshow .= " \r\nHumidity : ".$dtsaatini->{'humidity'}." %";
-								$dtshow .= " \r\nWind : ".$dtsaatini->{'wind_kph'}." km/h";
+								$dtshow .= "*Name* : ".$dtlokasi->{'name'};
+								$dtshow .= " \r\n*Region* : ".$dtlokasi->{'region'};
+								$dtshow .= " \r\n*Country* : ".$dtlokasi->{'country'};
+								$dtshow .= " \r\n*Time Update* : ".date_format(date_create($dtsaatini->{'last_updated'}),"H:i:s d-m-Y");
+								$dtshow .= " \r\n*Condition* : ".$dtsaatini->{'condition'}->{'text'};
+								$dtshow .= " \r\n*Temperature* : ".$dtsaatini->{'temp_c'}. " C";
+								$dtshow .= " \r\n*Humidity* : ".$dtsaatini->{'humidity'}." %";
+								$dtshow .= " \r\n*Wind* : ".$dtsaatini->{'wind_kph'}." km/h";
 
 								echo $dtshow;
 							}else{
@@ -118,12 +118,12 @@ class Welcome extends CI_Controller {
 					$dtshow = "";
 
 					$dtshow .= "Coronavirus disease in Indonesia\r\n";
-					$dtshow .= " \r\nConfirmed : ".$dtcovid[0]->{'positif'};
-					$dtshow .= " \r\nRecovered : ".$dtcovid[0]->{'sembuh'};
-					$dtshow .= " \r\nDeaths : ".$dtcovid[0]->{'meninggal'};
-					$dtshow .= " \r\nTreated : ".$dtcovid[0]->{'dirawat'};
-					$dtshow .= " \r\nCase Fatality Rate : ".number_format($cfr,2)." %";
-					$dtshow .= " \r\nCure Rate : ".number_format($curate,2)." %";
+					$dtshow .= " \r\n*Confirmed* : ".$dtcovid[0]->{'positif'};
+					$dtshow .= " \r\n*Recovered* : ".$dtcovid[0]->{'sembuh'};
+					$dtshow .= " \r\n*Deaths* : ".$dtcovid[0]->{'meninggal'};
+					$dtshow .= " \r\n*Treated* : ".$dtcovid[0]->{'dirawat'};
+					$dtshow .= " \r\n*Case Fatality Rate* : ".number_format($cfr,2)." %";
+					$dtshow .= " \r\n*Cure Rate* : ".number_format($curate,2)." %";
 					
 					echo $dtshow;
 				}else if($perintah == 'film' or $perintah == 'movie'){
@@ -145,16 +145,16 @@ class Welcome extends CI_Controller {
 						}
 						$rdtfilm = @file_get_contents("https://www.omdbapi.com/?plot=full&apikey=5a23a5ae&t=".$petunjuk.$tahun);
 						$dtfilm =  json_decode($rdtfilm);
-						$dtshow = "source of movie information from IMDb\r\n";
+						$dtshow = "Source of movie information from *IMDb*\r\n";
 
-						$dtshow .= "\r\nTitle : ".$dtfilm->{'Title'};
-						$dtshow .= "\r\nRating : ".$dtfilm->{'imdbRating'}."/10";
-						$dtshow .= "\r\nReleased : ".$dtfilm->{'Released'};
-						$dtshow .= "\r\nGendre : ".$dtfilm->{'Genre'};
-						$dtshow .= "\r\nActors : ".$dtfilm->{'Actors'};
-						$dtshow .= "\r\nCountry : ".$dtfilm->{'Country'};
-						$dtshow .= "\r\nProduction : ".$dtfilm->{'Production'};
-						$dtshow .= "\r\nPlot : ".$dtfilm->{'Plot'};
+						$dtshow .= "\r\n*Title* : ".$dtfilm->{'Title'};
+						$dtshow .= "\r\n*Rating* : ".$dtfilm->{'imdbRating'}."/10";
+						$dtshow .= "\r\n*Released* : ".$dtfilm->{'Released'};
+						$dtshow .= "\r\n*Gendre* : ".$dtfilm->{'Genre'};
+						$dtshow .= "\r\n*Actors* : ".$dtfilm->{'Actors'};
+						$dtshow .= "\r\n*Country* : ".$dtfilm->{'Country'};
+						$dtshow .= "\r\n*Production* : ".$dtfilm->{'Production'};
+						$dtshow .= "\r\n\r\n*Plot* : \r\n".$dtfilm->{'Plot'};
 	
 						echo $dtshow;
 					}else{
