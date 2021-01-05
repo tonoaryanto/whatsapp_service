@@ -18,7 +18,8 @@ class Welcome extends CI_Controller {
 			$identitas .= $extr2[$i];
 		}
 
-		$namabot = $this->db->query("SELECT nama_bot FROM data_bot WHERE keterangan = 'aktif'")->row_array()['nama_bot'];
+		$nmbot = $this->db->query("SELECT id,nama_bot FROM data_bot WHERE keterangan = 'aktif'")->row_array();
+		$namabot = $nmbot['nama_bot'];
 
 		$expesan = explode(" ",$pesan);
 
@@ -44,8 +45,17 @@ class Welcome extends CI_Controller {
 		if(strtolower($expesan[0]) == $namabot){
 			if(isset($expesan[1])){
 				$perintah = strtolower($expesan[1]);
-				if($perintah == 'cuaca' or $perintah == 'weather'){
-					$infocuaca = "To find out the weather where you are currently, please type the following command :\r\n".ucwords($namabot)." weather in <location name> \r\nor \r\n".ucwords($namabot)." cuaca di <nama lokasi> \r\n\r\nExample : \r\nJarvis weather in bandung \r\n\r\nYou can use additional regions and countries with the following format. \r\n<location>, <region> *(Must English)*, <country> *(Must English)* \r\n\r\nExample : \r\nJarvis weather in nagreg, west java \r\nor\r\nJarvis weather in nagreg, west java, indonesia";
+				if($perintah == 'changename'){
+					if(isset($expesan[2])){
+						$namabaru = strtolower($expesan[2]);
+						$this->db->update('data_bot',['nama_bot' => $namabaru],['id'=>$nmbot['id']]);
+						$this->db->query("DELETE FROM log_user WHERE id_bot = '".$nmbot['id']."'");
+						echo "OK";
+					}else{
+						echo $panggilsakit;
+					}
+				}else if($perintah == 'cuaca' or $perintah == 'weather'){
+						$infocuaca = "To find out the weather where you are currently, please type the following command :\r\n".ucwords($namabot)." weather in <location name> \r\nor \r\n".ucwords($namabot)." cuaca di <nama lokasi> \r\n\r\nExample : \r\nJarvis weather in bandung \r\n\r\nYou can use additional regions and countries with the following format. \r\n<location>, <region> *(Must English)*, <country> *(Must English)* \r\n\r\nExample : \r\nJarvis weather in nagreg, west java \r\nor\r\nJarvis weather in nagreg, west java, indonesia";
 					if(isset($expesan[2]) and isset($expesan[3])){
 						$petunjuk = strtolower($expesan[2]);
 						$lokasi = strtolower($expesan[3]);
@@ -194,7 +204,7 @@ class Welcome extends CI_Controller {
 					$data['tanggalwaktu'] = date("Y-m-d H:i:s");
 	
 					$this->db->where(['kontak'=>$identitas]);
-					$this->db->update("log_user", $data);
+					$this->db->update("log_user", $data,['id_bot'=>$nmbot['id']]);
 
 					echo $pesanini;
 				}else{
@@ -203,6 +213,7 @@ class Welcome extends CI_Controller {
 			}else{
 				$data['kontak'] = $identitas;
 				$data['tanggalwaktu'] = date("Y-m-d H:i:s");
+				$data['id_bot'] = $nmbot['id'];
 
 				$this->db->insert("log_user", $data);
 				echo $pesanini;
