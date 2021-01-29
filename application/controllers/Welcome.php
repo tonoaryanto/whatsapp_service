@@ -42,7 +42,7 @@ class Welcome extends CI_Controller {
 				}else if($perintah == 'film' or $perintah == 'movie'){
 					echo $this->query_model->film(['expesan' => $expesan, 'namabot' => $namabot]);
 				}else if($perintah == 'farm'){
-					echo $this->query_model->film(['expesan' => $expesan, 'namabot' => $namabot]);
+					echo $this->query_model->farm(['expesan' => $expesan, 'namabot' => $namabot]);
 				}else{
 					echo $panggilsakit;
 				}
@@ -50,9 +50,6 @@ class Welcome extends CI_Controller {
 				$dipanggil = "";
 
 				$dipanggil .= "Hi. Please type my name followed by the following command: \r\n";
-				$dipanggil .="- weather/cuaca \r\n";
-				$dipanggil .="- movie/film \r\n";
-				$dipanggil .="- covid19 \r\n";
 				$dipanggil .="- farm \r\n";
 				$dipanggil .=" \r\nExample: ".ucwords($namabot)." weather";
 
