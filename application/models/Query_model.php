@@ -217,13 +217,13 @@ class Query_model extends CI_Model {
         if(isset($expesan[2])){
             if(isset($expesan[3])){
                 $pin = strtolower($expesan[2]);
-                $petunjuk = strtolower($expesan[2]);
+                $petunjuk = strtolower($expesan[3]);
                 $rdtfarm = @file_get_contents("http://apidbo.anselljaya.com/gtwa/dhouse?a64617461=".$pin."&686f757365=".$petunjuk);
                 $dtfarm =  json_decode($rdtfarm);
                 $dtshow = "";
 
-                if($dtfarm['status'] == true){
-                    $dataini = $dtfarm['data'];
+                if($dtfarm->status == 1){
+                    $dataini = $dtfarm->data;
 
                     for ($i=0; $i < count($dataini); $i++) {
                         $dtshow .= "*House Name* : ".$dataini[$i]->{'nama_kandang'}."\r\n";

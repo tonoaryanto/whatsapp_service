@@ -16,7 +16,11 @@ class Welcome extends CI_Controller {
 		if($pesan == '' AND $rawidentitas == ''){$this->load->view("welcome_message");return;}
 
 		$extr = explode(" ",$rawidentitas);
-		$extr2 = explode("-",$extr[1]);
+		if(isset($extr[1])){
+			$extr2 = explode("-",$extr[1]);
+		}else{
+			$extr2 = [];
+		}
 
 		$identitas = $extr[0];
 		for ($i=0; $i < count($extr2); $i++) { 
