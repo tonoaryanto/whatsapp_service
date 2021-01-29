@@ -226,7 +226,7 @@ class Query_model extends CI_Model {
                     $dataini = $dtfarm->data;
 
                     for ($i=0; $i < count($dataini); $i++) {
-                        $dtshow .= "*House Name* : ".$dataini[$i]->{'nama_kandang'}."\r\n";
+                        $dtshow .= "(*".$dataini[$i]->{'nama_kandang'}."*)\r\n";
 
                         $tglset = date_format(date_create($dataini[$i]->{'date_create'}), "l, d F Y");
                         $xmenit = (int)str_split(date_format(date_create($dataini[$i]->{'date_create'}), "i"))[1] - 5;
@@ -242,14 +242,15 @@ class Query_model extends CI_Model {
                         $dtshow .= "*Time* : ".$jam."\r\n";
                         $dtshow .= "*Flock* : ".$dataini[$i]->{'periode'}."\r\n";
                         $dtshow .= "*Growday* : ".$dataini[$i]->{'growday'}."\r\n";
-                        $dtshow .= "*Required Temperature* : ".$dataini[$i]->{'req_temp'}."\r\n";
-                        $dtshow .= "*Current Temperature* : ".$dataini[$i]->{'avg_temp'}."\r\n";
-                        $dtshow .= "*Humidity* : ".$dataini[$i]->{'humidity'}."\r\n";
-                        $dtshow .= "*Fan Speed* : ".$dataini[$i]->{'fan'}."\r\n";
-                        $dtshow .= "*Wind Speed* : ".$dataini[$i]->{'windspeed'}."\r\n";
+                        $dtshow .= "*Required Temperature* : ".$dataini[$i]->{'req_temp'}." 'C\r\n";
+                        $dtshow .= "*Current Temperature* : ".$dataini[$i]->{'avg_temp'}." 'C\r\n";
+                        $dtshow .= "*Humidity* : ".$dataini[$i]->{'humidity'}." %\r\n";
+                        $dtshow .= "*Fan Speed* : ".$dataini[$i]->{'fan'}." %\r\n";
+                        $dtshow .= "*Wind Speed* : ".$dataini[$i]->{'windspeed'}." m/s\r\n";
                         $dtshow .= "*Feed Consumption* : ".$dataini[$i]->{'feed'}."\r\n";
-                        $dtshow .= "*Water Consumption* : ".$dataini[$i]->{'water'}."\r\n";
+                        $dtshow .= "*Water Consumption* : ".$dataini[$i]->{'water'}." Liter\r\n";
                         $dtshow .= "*Static Pressure* : ".$dataini[$i]->{'static_pressure'}."\r\n";
+                        $dtshow .= "\r\n";
                     }
                 }else{
                     $dtshow .= "An error has occurred. please double check your command";
