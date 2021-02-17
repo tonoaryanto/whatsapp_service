@@ -8,7 +8,7 @@ class Query_model extends CI_Model {
         $this->load->model(array('konfigurasi_model' => 'konfigurasi'));
     }
 
-    public function fistchat($rdata)
+    public function firstchat($rdata)
     {
         $expesan = $rdata['expesan'];
         $nmbot = $rdata['nmbot'];
