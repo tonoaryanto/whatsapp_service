@@ -229,14 +229,15 @@ class Query_model extends CI_Model {
                         $dtshow .= "( *".$dataini[$i]->{'nama_kandang'}."* )\r\n";
 
                         $tglset = date_format(date_create($dataini[$i]->{'date_create'}), "l, d F Y");
-                        $xmenit = (int)str_split(date_format(date_create($dataini[$i]->{'date_create'}), "i"))[1] - 5;
-                        if($xmenit < 0){
-                          $xmenit = 0;
-                        }else if($xmenit >= 0){
-                          $xmenit = 5;
-                        }
-                        $menit = str_split(date_format(date_create($dataini[$i]->{'date_create'}), "i"))[0].$xmenit;
-                        $jam = date_format(date_create($dataini[$i]->{'date_create'}), "H").":".$menit.":00";
+                        // $xmenit = (int)str_split(date_format(date_create($dataini[$i]->{'date_create'}), "i"))[1] - 5;
+                        // if($xmenit < 0){
+                        //   $xmenit = 0;
+                        // }else if($xmenit >= 0){
+                        //   $xmenit = 5;
+                        // }
+                        // $menit = str_split(date_format(date_create($dataini[$i]->{'date_create'}), "i"))[0].$xmenit;
+                        // $jam = date_format(date_create($dataini[$i]->{'date_create'}), "H").":".$menit.":00";
+                        $jam = date_format(date_create($dataini[$i]->{'date_create'}), "H:i").":00";
 
                         $dtshow .= "*Date* : ".$tglset."\r\n";
                         $dtshow .= "*Time* : ".$jam."\r\n";
