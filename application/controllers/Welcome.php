@@ -55,7 +55,7 @@ class Welcome extends CI_Controller {
 
 				$dipanggil .= "Hi. Please type my name followed by the following command: \r\n";
 				$dipanggil .="- farm \r\n";
-				$dipanggil .=" \r\nExample: ".ucwords($namabot)." weather";
+				$dipanggil .=" \r\nExample: ".ucwords($namabot)." covid19";
 
 				echo $dipanggil;
 			}
