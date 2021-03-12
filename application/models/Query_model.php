@@ -8,6 +8,38 @@ class Query_model extends CI_Model {
         $this->load->model(array('konfigurasi_model' => 'konfigurasi'));
     }
 
+    public function onchat($rdata)
+    {
+        $nmbot = $rdata['nmbot'];
+        $identitas = $rdata['identitas'];
+        $namabot = $nmbot['nama_bot'];
+
+        $cek = $this->db->query("SELECT kontak,tanggalwaktu FROM log_user WHERE kontak = '".$identitas."'");
+        $ceklast = $cek->num_rows();
+
+        if($ceklast > 0){
+            $cekdtsimpan = $cek->row_array();
+            
+            $jamsimpan = str_pad(date_format(date_create($cekdtsimpan['tanggalwaktu']), "Y"), 4, '0', STR_PAD_LEFT).str_pad(date_format(date_create($cekdtsimpan['tanggalwaktu']), "m"), 2, '0', STR_PAD_LEFT).str_pad(date_format(date_create($cekdtsimpan['tanggalwaktu']), "d"), 2, '0', STR_PAD_LEFT).str_pad(date_format(date_create($cekdtsimpan['tanggalwaktu']), "H"), 2, '0', STR_PAD_LEFT);
+            
+            $jamini = str_pad(date("Y"), 4, '0', STR_PAD_LEFT).str_pad(date("m"), 2, '0', STR_PAD_LEFT).str_pad(date("d"), 2, '0', STR_PAD_LEFT).str_pad(date("H"), 2, '0', STR_PAD_LEFT);
+
+            $hinterval = (int)$jamini - (int)$jamsimpan;
+            if($hinterval >= 3){
+                $data['tanggalwaktu'] = date("Y-m-d H:i:s");
+
+                $this->db->where(['kontak'=>$identitas]);
+                $this->db->update("log_user", $data,['id_bot'=>$nmbot['id']]);
+            }
+        }else{
+            $data['kontak'] = $identitas;
+            $data['tanggalwaktu'] = date("Y-m-d H:i:s");
+            $data['id_bot'] = $nmbot['id'];
+
+            $this->db->insert("log_user", $data);
+        }
+    }
+
     public function firstchat($rdata)
     {
         $expesan = $rdata['expesan'];

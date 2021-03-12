@@ -20,11 +20,7 @@ class Konfigurasi_model extends CI_Model {
 		}
 
         $sakit[0] = "I don't understand what you are saying.";
-		$sakit[1] = "I know you are lonely.";
-		$sakit[2] = "You hurt my brain uugggghh.";
-		$sakit[3] = "Whatever you say -_-";
-		$sakit[4] = 'What is the meaning of "'.$katakamu.'" ?';
-		$sakit[5] = "Are you serious about chatting with me?";
+		$sakit[1] = 'What is the meaning of "'.$katakamu.'" ?';
 
 		return $sakit[rand(0,(count($sakit) - 1))];
     }

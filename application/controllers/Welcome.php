@@ -15,17 +15,20 @@ class Welcome extends CI_Controller {
 
 		if($pesan == '' AND $rawidentitas == ''){$this->load->view("welcome_message");return;}
 
+        $rawextr = "";
 		$extr = explode(" ",$rawidentitas);
-		if(isset($extr[1])){
-			$extr2 = explode("-",$extr[1]);
-		}else{
-			$extr2 = [];
-		}
+        for ($i=0; $i < count($extr); $i++) {
+            $rawextr = $rawextr.$extr[$i];
+        }
+        $extr = $rawextr;
 
-		$identitas = $extr[0];
-		for ($i=0; $i < count($extr2); $i++) { 
-			$identitas .= $extr2[$i];
-		}
+        $rawextr2 = "";
+		$extr2 = explode("-",$extr);
+        for ($i=0; $i < count($extr2); $i++) {
+            $rawextr2 = $rawextr2.$extr2[$i];
+        }
+        $extr2 = $rawextr2;
+		$identitas = $extr2;
 
 		$nmbot = $this->db->query("SELECT id,nama_bot FROM data_bot WHERE keterangan = 'aktif'")->row_array();
 		$namabot = $nmbot['nama_bot'];
@@ -35,6 +38,7 @@ class Welcome extends CI_Controller {
 		$panggilsakit = $this->konfigurasi->pesan_undefined($expesan);
 
 		if(strtolower($expesan[0]) == $namabot){
+			echo $this->query_model->onchat(['nmbot' => $nmbot,'identitas' => $identitas]);
 			if(isset($expesan[1])){
 				$perintah = strtolower($expesan[1]);
 				if($perintah == 'changename'){
