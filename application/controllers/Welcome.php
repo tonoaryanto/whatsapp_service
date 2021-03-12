@@ -47,8 +47,8 @@ class Welcome extends CI_Controller {
 					echo $this->query_model->cuaca(['expesan' => $expesan, 'namabot' => $namabot]);
 				}else if($perintah == 'covid19'){
 					echo $this->query_model->covid();
-				}else if($perintah == 'film' or $perintah == 'movie'){
-					echo $this->query_model->film(['expesan' => $expesan, 'namabot' => $namabot]);
+				}else if($perintah == 'otp'){
+					echo $this->query_model->otp(['expesan' => $expesan, 'namabot' => $namabot,'identitas' => $identitas]);
 				}else if($perintah == 'farm'){
 					echo $this->query_model->farm(['expesan' => $expesan, 'namabot' => $namabot]);
 				}else{
@@ -63,6 +63,8 @@ class Welcome extends CI_Controller {
 
 				echo $dipanggil;
 			}
+		}else if(strtolower($expesan[0]) ==  'otp'){
+			echo $this->query_model->otp(['expesan' => $expesan,'identitas' => $identitas]);
 		}else{
 			echo $this->query_model->firstchat(['expesan' => $expesan,'nmbot' => $nmbot,'identitas' => $identitas]);
 		}

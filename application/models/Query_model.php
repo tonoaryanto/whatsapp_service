@@ -195,48 +195,32 @@ class Query_model extends CI_Model {
         return $dtshow;
     }
 
-    public function film($rdata)
+    public function otp($rdata)
     {
         $expesan = $rdata['expesan'];
-        $namabot = $rdata['namabot'];
+        $identitas = $rdata['identitas'];
 
-        $infofilm = "To find out the information about a film, please type the following command :\r\n".ucwords($namabot)." movie <movie title> \r\nor \r\n".ucwords($namabot)." film <Judul film> \r\n\r\nExample : \r\nJarvis movie Conjuring \r\n\r\nYou can use additional year with the following format. \r\n<movie title> *#<year> \r\n\r\nExample : \r\nJarvis Contagion *2011";
-        if(isset($expesan[2])){
-            $petunjuk = strtolower($expesan[2]);
-            if(isset($expesan[3])){
-                for ($i=3; $i < count($expesan); $i++) {
-                    if(str_split($expesan[$i])[0] != "*"){
-                        $petunjuk .= '%20'.$expesan[$i];
-                    }
+        $panggilsakit = $this->konfigurasi->pesan_undefined($expesan);
+
+        if(isset($expesan[1])){
+            $petunjuk = strtolower($expesan[1]);
+
+            $cek = $this->db->query("SELECT id,keterangan FROM data_otp WHERE nomor_telepon = '".$identitas."' AND kode_otp = '".$petunjuk."'")->num_rows();
+
+            $dtshow = "";
+            if($cek > 0){
+                $cok = $cek->row_array();
+                if($cok['keterangan'] == 0){
+                    $this->db->update("data_otp", ['keterangan'=>'1'],['nomor_telepon'=>$identitas]);
+                    $dtshow .= "Verification is successful. \r\nPlease click request demo on the website.";
+                }else{
+                    $dtshow .= "Your code has been verified.";
                 }
             }
-    
-            $tahun = "";
-            if(str_split(end($expesan))[0] == "*"){
-                $tahun .= explode("*",end($expesan))[1];
-                $tahun = "&y=".$tahun; 
-            }
-            $rdtfilm = @file_get_contents("https://www.omdbapi.com/?plot=full&apikey=5a23a5ae&t=".$petunjuk.$tahun);
-            $dtfilm =  json_decode($rdtfilm);
-            $dtshow = "";
-    
-            if(isset($dtfilm->{'Title'})){
-                $dtshow .= "Source of movie information from *IMDb*\r\n";
-                $dtshow .= "\r\n*Title* : ".$dtfilm->{'Title'};
-                $dtshow .= "\r\n*Rating* : ".$dtfilm->{'imdbRating'}."/10";
-                $dtshow .= "\r\n*Released* : ".$dtfilm->{'Released'};
-                $dtshow .= "\r\n*Gendre* : ".$dtfilm->{'Genre'};
-                $dtshow .= "\r\n*Actors* : ".$dtfilm->{'Actors'};
-                $dtshow .= "\r\n*Country* : ".$dtfilm->{'Country'};
-                $dtshow .= "\r\n*Production* : ".$dtfilm->{'Production'};
-                $dtshow .= "\r\n\r\n*Plot* : \r\n".$dtfilm->{'Plot'};	
-            }else{
-                $dtshow .= "It looks like the movie you are looking for is not available :(";
-            }
-
+            
             return $dtshow;
         }else{
-            return $infofilm;
+            return $panggilsakit;
         }
     }
 
