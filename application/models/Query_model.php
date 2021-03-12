@@ -205,10 +205,10 @@ class Query_model extends CI_Model {
         if(isset($expesan[1])){
             $petunjuk = strtolower($expesan[1]);
 
-            $cek = $this->db->query("SELECT id,keterangan FROM data_otp WHERE nomor_telepon = '".$identitas."' AND kode_otp = '".$petunjuk."'")->num_rows();
+            $cek = $this->db->query("SELECT id,keterangan FROM data_otp WHERE nomor_telepon = '".$identitas."' AND kode_otp = '".$petunjuk."'");
 
             $dtshow = "";
-            if($cek > 0){
+            if($cek->num_rows() > 0){
                 $cok = $cek->row_array();
                 if($cok['keterangan'] == 0){
                     $this->db->update("data_otp", ['keterangan'=>'1'],['nomor_telepon'=>$identitas]);
