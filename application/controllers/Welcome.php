@@ -47,8 +47,6 @@ class Welcome extends CI_Controller {
 					echo $this->query_model->cuaca(['expesan' => $expesan, 'namabot' => $namabot]);
 				}else if($perintah == 'covid19'){
 					echo $this->query_model->covid();
-				}else if($perintah == 'otp'){
-					echo $this->query_model->otp(['expesan' => $expesan, 'namabot' => $namabot,'identitas' => $identitas]);
 				}else if($perintah == 'farm'){
 					echo $this->query_model->farm(['expesan' => $expesan, 'namabot' => $namabot]);
 				}else{

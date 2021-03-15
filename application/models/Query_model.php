@@ -216,6 +216,8 @@ class Query_model extends CI_Model {
                 }else{
                     $dtshow .= "Your code has been verified.";
                 }
+            }else{
+            $dtshow = "The code you entered is wrong";
             }
             
             return $dtshow;
