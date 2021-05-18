@@ -244,7 +244,7 @@ class Query_model extends CI_Model {
                     $dataini = $dtfarm->data;
 
                     for ($i=0; $i < count($dataini); $i++) {
-                        $dtshow .= "( *".$dataini[$i]->{'nama_kandang'}."* )\r\n";
+                        $dtshow .= "*".$dataini[$i]->{'urutan'}.".* ( *".$dataini[$i]->{'nama_kandang'}."* )\r\n";
 
                         $tglset = date_format(date_create($dataini[$i]->{'date_create'}), "l, d F Y");
                         // $xmenit = (int)str_split(date_format(date_create($dataini[$i]->{'date_create'}), "i"))[1] - 5;
