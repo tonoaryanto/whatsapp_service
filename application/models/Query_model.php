@@ -289,7 +289,7 @@ class Query_model extends CI_Model {
         $expesan = $rdata['expesan'];
         $namabot = $rdata['namabot'];
 
-        $infofilm = "To find out the information about a egg counter in your farm, please type the following command :\r\n".ucwords($namabot)." eggfarm <secret pin> all/<number house> \r\n\r\nExample : \r\n".ucwords($namabot)." eggfarm 2AX45 all \r\nor\r\n".ucwords($namabot)." farm 2AX45 3";
+        $infofilm = "To find out information about the number of eggs on your farm, please type the following command :\r\n".ucwords($namabot)." eggfarm <secret pin> all/<number house> \r\n\r\nExample : \r\n".ucwords($namabot)." eggfarm 2AX45 all \r\nor\r\n".ucwords($namabot)." eggfarm 2AX45 3";
         if(isset($expesan[2])){
             if(isset($expesan[3])){
                 $pin = strtolower($expesan[2]);
