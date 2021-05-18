@@ -49,6 +49,8 @@ class Welcome extends CI_Controller {
 					echo $this->query_model->covid();
 				}else if($perintah == 'farm'){
 					echo $this->query_model->farm(['expesan' => $expesan, 'namabot' => $namabot]);
+				}else if($perintah == 'eggfarm'){
+					echo $this->query_model->egg(['expesan' => $expesan, 'namabot' => $namabot]);
 				}else{
 					echo $panggilsakit;
 				}
@@ -57,6 +59,7 @@ class Welcome extends CI_Controller {
 
 				$dipanggil .= "Hi. Please type my name followed by the following command: \r\n";
 				$dipanggil .="- farm \r\n";
+				$dipanggil .="- eggfarm \r\n";
 				$dipanggil .=" \r\nExample: ".ucwords($namabot)." covid19";
 
 				echo $dipanggil;

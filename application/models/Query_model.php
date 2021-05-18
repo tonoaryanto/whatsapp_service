@@ -261,14 +261,83 @@ class Query_model extends CI_Model {
                         $dtshow .= "*Time* : ".$jam."\r\n";
                         $dtshow .= "*Flock* : ".$dataini[$i]->{'periode'}."\r\n";
                         $dtshow .= "*Growday* : ".$dataini[$i]->{'growday'}."\r\n";
-                        $dtshow .= "*Required Temperature* : ".$dataini[$i]->{'req_temp'}." 'C\r\n";
-                        $dtshow .= "*Current Temperature* : ".$dataini[$i]->{'avg_temp'}." 'C\r\n";
+                        $dtshow .= "*Required Temperature* : ".$dataini[$i]->{'req_temp'}." ℃\r\n";
+                        $dtshow .= "*Current Temperature* : ".$dataini[$i]->{'avg_temp'}." ℃\r\n";
                         $dtshow .= "*Humidity* : ".$dataini[$i]->{'humidity'}." %\r\n";
                         $dtshow .= "*Fan Speed* : ".$dataini[$i]->{'fan'}." %\r\n";
                         $dtshow .= "*Wind Speed* : ".$dataini[$i]->{'windspeed'}." m/s\r\n";
                         $dtshow .= "*Feed Consumption* : ".$dataini[$i]->{'feed'}."\r\n";
                         $dtshow .= "*Water Consumption* : ".$dataini[$i]->{'water'}." Liter\r\n";
                         $dtshow .= "*Static Pressure* : ".$dataini[$i]->{'static_pressure'}."\r\n";
+                        $dtshow .= "\r\n";
+                    }
+                }else{
+                    $dtshow .= "An error has occurred. please double check your command";
+                }
+    
+                return $dtshow;
+            }else{
+                return 'Please add on your command "all" or <number house> after your secret code. \r\nExample : '.ucwords($namabot)." farm 2AX45 all \r\nor\r\n".ucwords($namabot)." farm 2AX45 3";
+            }
+        }else{
+            return $infofilm;
+        }
+    }
+
+    public function egg($rdata)
+    {
+        $expesan = $rdata['expesan'];
+        $namabot = $rdata['namabot'];
+
+        $infofilm = "To find out the information about a egg counter in your farm, please type the following command :\r\n".ucwords($namabot)." eggfarm <secret pin> all/<number house> \r\n\r\nExample : \r\n".ucwords($namabot)." eggfarm 2AX45 all \r\nor\r\n".ucwords($namabot)." farm 2AX45 3";
+        if(isset($expesan[2])){
+            if(isset($expesan[3])){
+                $pin = strtolower($expesan[2]);
+                $petunjuk = strtolower($expesan[3]);
+                $rdtfarm = @file_get_contents("http://apidbo.anselljaya.com/gtwa/degg?a64617461=".$pin."&686f757365=".$petunjuk);
+                $dtfarm =  json_decode($rdtfarm);
+                $dtshow = "";
+
+                if($dtfarm->status == 1){
+                    $dataini = $dtfarm->data;
+
+                    for ($i=0; $i < count($dataini); $i++) {
+                        $dtshow .= "*".$dataini[$i]->{'urutan'}.".* ( *".$dataini[$i]->{'nama_kandang'}."* )\r\n";
+
+                        $tglset = date_format(date_create($dataini[$i]->{'date_create'}), "l, d F Y");
+                        // $xmenit = (int)str_split(date_format(date_create($dataini[$i]->{'date_create'}), "i"))[1] - 5;
+                        // if($xmenit < 0){
+                        //   $xmenit = 0;
+                        // }else if($xmenit >= 0){
+                        //   $xmenit = 5;
+                        // }
+                        // $menit = str_split(date_format(date_create($dataini[$i]->{'date_create'}), "i"))[0].$xmenit;
+                        // $jam = date_format(date_create($dataini[$i]->{'date_create'}), "H").":".$menit.":00";
+                        $jam = date_format(date_create($dataini[$i]->{'date_create'}), "H:i").":00";
+
+                        $totalegg = (int)$dataini[$i]->{'eggcounter1'} + (int)$dataini[$i]->{'eggcounter2'} + (int)$dataini[$i]->{'eggcounter3'} + (int)$dataini[$i]->{'eggcounter4'} + (int)$dataini[$i]->{'eggcounter5'} + (int)$dataini[$i]->{'eggcounter6'} + (int)$dataini[$i]->{'eggcounter7'} + (int)$dataini[$i]->{'eggcounter8'};
+                        $persenegg1 = (int)$dataini[$i]->{'eggcounter1'} / $totalegg * 100;
+                        $persenegg2 = (int)$dataini[$i]->{'eggcounter2'} / $totalegg * 100;
+                        $persenegg3 = (int)$dataini[$i]->{'eggcounter3'} / $totalegg * 100;
+                        $persenegg4 = (int)$dataini[$i]->{'eggcounter4'} / $totalegg * 100;
+                        $persenegg5 = (int)$dataini[$i]->{'eggcounter5'} / $totalegg * 100;
+                        $persenegg6 = (int)$dataini[$i]->{'eggcounter6'} / $totalegg * 100;
+                        $persenegg7 = (int)$dataini[$i]->{'eggcounter7'} / $totalegg * 100;
+                        $persenegg8 = (int)$dataini[$i]->{'eggcounter8'} / $totalegg * 100;
+
+                        $dtshow .= "*Date* : ".$tglset."\r\n";
+                        $dtshow .= "*Time* : ".$jam."\r\n";
+                        $dtshow .= "*Flock* : ".$dataini[$i]->{'periode'}."\r\n";
+                        $dtshow .= "*Growday* : ".$dataini[$i]->{'growday'}."\r\n";
+                        $dtshow .= "*Total Egg* : ".$totalegg." \r\n";
+                        $dtshow .= "*Egg Count 1* : ".$dataini[$i]->{'eggcounter1'}." (".number_format($persenegg1,2)."%)\r\n";
+                        $dtshow .= "*Egg Count 2* : ".$dataini[$i]->{'eggcounter2'}." (".number_format($persenegg2,2)."%)\r\n";
+                        $dtshow .= "*Egg Count 3* : ".$dataini[$i]->{'eggcounter3'}." (".number_format($persenegg3,2)."%)\r\n";
+                        $dtshow .= "*Egg Count 4* : ".$dataini[$i]->{'eggcounter4'}." (".number_format($persenegg4,2)."%)\r\n";
+                        $dtshow .= "*Egg Count 5* : ".$dataini[$i]->{'eggcounter5'}." (".number_format($persenegg5,2)."%)\r\n";
+                        $dtshow .= "*Egg Count 6* : ".$dataini[$i]->{'eggcounter6'}." (".number_format($persenegg6,2)."%)\r\n";
+                        $dtshow .= "*Egg Count 7* : ".$dataini[$i]->{'eggcounter7'}." (".number_format($persenegg7,2)."%)\r\n";
+                        $dtshow .= "*Egg Count 8* : ".$dataini[$i]->{'eggcounter8'}." (".number_format($persenegg8,2)."%)\r\n";
                         $dtshow .= "\r\n";
                     }
                 }else{
