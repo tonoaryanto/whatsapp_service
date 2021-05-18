@@ -315,29 +315,47 @@ class Query_model extends CI_Model {
                         // $jam = date_format(date_create($dataini[$i]->{'date_create'}), "H").":".$menit.":00";
                         $jam = date_format(date_create($dataini[$i]->{'date_create'}), "H:i").":00";
 
-                        $totalegg = (int)$dataini[$i]->{'eggcounter1'} + (int)$dataini[$i]->{'eggcounter2'} + (int)$dataini[$i]->{'eggcounter3'} + (int)$dataini[$i]->{'eggcounter4'} + (int)$dataini[$i]->{'eggcounter5'} + (int)$dataini[$i]->{'eggcounter6'} + (int)$dataini[$i]->{'eggcounter7'} + (int)$dataini[$i]->{'eggcounter8'};
-                        $persenegg1 = @((int)$dataini[$i]->{'eggcounter1'} / $totalegg) * 100;
-                        $persenegg2 = @((int)$dataini[$i]->{'eggcounter2'} / $totalegg) * 100;
-                        $persenegg3 = @((int)$dataini[$i]->{'eggcounter3'} / $totalegg) * 100;
-                        $persenegg4 = @((int)$dataini[$i]->{'eggcounter4'} / $totalegg) * 100;
-                        $persenegg5 = @((int)$dataini[$i]->{'eggcounter5'} / $totalegg) * 100;
-                        $persenegg6 = @((int)$dataini[$i]->{'eggcounter6'} / $totalegg) * 100;
-                        $persenegg7 = @((int)$dataini[$i]->{'eggcounter7'} / $totalegg) * 100;
-                        $persenegg8 = @((int)$dataini[$i]->{'eggcounter8'} / $totalegg) * 100;
+                        $egg1 = (int)$dataini[$i]->{'eggcounter1'};
+                        $egg2 = (int)$dataini[$i]->{'eggcounter2'};
+                        $egg3 = (int)$dataini[$i]->{'eggcounter3'};
+                        $egg4 = (int)$dataini[$i]->{'eggcounter4'};
+                        $egg5 = (int)$dataini[$i]->{'eggcounter5'};
+                        $egg6 = (int)$dataini[$i]->{'eggcounter6'};
+                        $egg7 = (int)$dataini[$i]->{'eggcounter7'};
+                        $egg8 = (int)$dataini[$i]->{'eggcounter8'};
+
+                        if($egg1 < 0){$egg1 = 0;}
+                        if($egg2 < 0){$egg2 = 0;}
+                        if($egg3 < 0){$egg3 = 0;}
+                        if($egg4 < 0){$egg4 = 0;}
+                        if($egg5 < 0){$egg5 = 0;}
+                        if($egg6 < 0){$egg6 = 0;}
+                        if($egg7 < 0){$egg7 = 0;}
+                        if($egg8 < 0){$egg8 = 0;}
+
+                        $totalegg = $egg1 + $egg2 + $egg3 + $egg4 + $egg5 + $egg6 + $egg7 + $egg8;
+                        $persenegg1 = @($egg1 / $totalegg) * 100;
+                        $persenegg2 = @($egg2 / $totalegg) * 100;
+                        $persenegg3 = @($egg3 / $totalegg) * 100;
+                        $persenegg4 = @($egg4 / $totalegg) * 100;
+                        $persenegg5 = @($egg5 / $totalegg) * 100;
+                        $persenegg6 = @($egg6 / $totalegg) * 100;
+                        $persenegg7 = @($egg7 / $totalegg) * 100;
+                        $persenegg8 = @($egg8 / $totalegg) * 100;
 
                         $dtshow .= "*Date* : ".$tglset."\r\n";
                         $dtshow .= "*Time* : ".$jam."\r\n";
                         $dtshow .= "*Flock* : ".$dataini[$i]->{'periode'}."\r\n";
                         $dtshow .= "*Growday* : ".$dataini[$i]->{'growday'}."\r\n";
                         $dtshow .= "*Total Egg* : ".$totalegg." \r\n";
-                        $dtshow .= "*Egg Count 1* : ".$dataini[$i]->{'eggcounter1'}." (".number_format($persenegg1,2)."%)\r\n";
-                        $dtshow .= "*Egg Count 2* : ".$dataini[$i]->{'eggcounter2'}." (".number_format($persenegg2,2)."%)\r\n";
-                        $dtshow .= "*Egg Count 3* : ".$dataini[$i]->{'eggcounter3'}." (".number_format($persenegg3,2)."%)\r\n";
-                        $dtshow .= "*Egg Count 4* : ".$dataini[$i]->{'eggcounter4'}." (".number_format($persenegg4,2)."%)\r\n";
-                        $dtshow .= "*Egg Count 5* : ".$dataini[$i]->{'eggcounter5'}." (".number_format($persenegg5,2)."%)\r\n";
-                        $dtshow .= "*Egg Count 6* : ".$dataini[$i]->{'eggcounter6'}." (".number_format($persenegg6,2)."%)\r\n";
-                        $dtshow .= "*Egg Count 7* : ".$dataini[$i]->{'eggcounter7'}." (".number_format($persenegg7,2)."%)\r\n";
-                        $dtshow .= "*Egg Count 8* : ".$dataini[$i]->{'eggcounter8'}." (".number_format($persenegg8,2)."%)\r\n";
+                        $dtshow .= "*Egg Count 1* : ".$egg1." (".number_format($persenegg1,2)." %)\r\n";
+                        $dtshow .= "*Egg Count 2* : ".$egg2." (".number_format($persenegg2,2)." %)\r\n";
+                        $dtshow .= "*Egg Count 3* : ".$egg3." (".number_format($persenegg3,2)." %)\r\n";
+                        $dtshow .= "*Egg Count 4* : ".$egg4." (".number_format($persenegg4,2)." %)\r\n";
+                        $dtshow .= "*Egg Count 5* : ".$egg5." (".number_format($persenegg5,2)." %)\r\n";
+                        $dtshow .= "*Egg Count 6* : ".$egg6." (".number_format($persenegg6,2)." %)\r\n";
+                        $dtshow .= "*Egg Count 7* : ".$egg7." (".number_format($persenegg7,2)." %)\r\n";
+                        $dtshow .= "*Egg Count 8* : ".$egg8." (".number_format($persenegg8,2)." %)\r\n";
                         $dtshow .= "\r\n";
                     }
                 }else{
