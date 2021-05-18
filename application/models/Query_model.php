@@ -316,14 +316,14 @@ class Query_model extends CI_Model {
                         $jam = date_format(date_create($dataini[$i]->{'date_create'}), "H:i").":00";
 
                         $totalegg = (int)$dataini[$i]->{'eggcounter1'} + (int)$dataini[$i]->{'eggcounter2'} + (int)$dataini[$i]->{'eggcounter3'} + (int)$dataini[$i]->{'eggcounter4'} + (int)$dataini[$i]->{'eggcounter5'} + (int)$dataini[$i]->{'eggcounter6'} + (int)$dataini[$i]->{'eggcounter7'} + (int)$dataini[$i]->{'eggcounter8'};
-                        $persenegg1 = floatval($dataini[$i]->{'eggcounter1'}) / $totalegg * 100;
-                        $persenegg2 = floatval($dataini[$i]->{'eggcounter2'}) / $totalegg * 100;
-                        $persenegg3 = floatval($dataini[$i]->{'eggcounter3'}) / $totalegg * 100;
-                        $persenegg4 = floatval($dataini[$i]->{'eggcounter4'}) / $totalegg * 100;
-                        $persenegg5 = floatval($dataini[$i]->{'eggcounter5'}) / $totalegg * 100;
-                        $persenegg6 = floatval($dataini[$i]->{'eggcounter6'}) / $totalegg * 100;
-                        $persenegg7 = floatval($dataini[$i]->{'eggcounter7'}) / $totalegg * 100;
-                        $persenegg8 = floatval($dataini[$i]->{'eggcounter8'}) / $totalegg * 100;
+                        $persenegg1 = @((int)$dataini[$i]->{'eggcounter1'} / $totalegg) * 100;
+                        $persenegg2 = @((int)$dataini[$i]->{'eggcounter2'} / $totalegg) * 100;
+                        $persenegg3 = @((int)$dataini[$i]->{'eggcounter3'} / $totalegg) * 100;
+                        $persenegg4 = @((int)$dataini[$i]->{'eggcounter4'} / $totalegg) * 100;
+                        $persenegg5 = @((int)$dataini[$i]->{'eggcounter5'} / $totalegg) * 100;
+                        $persenegg6 = @((int)$dataini[$i]->{'eggcounter6'} / $totalegg) * 100;
+                        $persenegg7 = @((int)$dataini[$i]->{'eggcounter7'} / $totalegg) * 100;
+                        $persenegg8 = @((int)$dataini[$i]->{'eggcounter8'} / $totalegg) * 100;
 
                         $dtshow .= "*Date* : ".$tglset."\r\n";
                         $dtshow .= "*Time* : ".$jam."\r\n";
